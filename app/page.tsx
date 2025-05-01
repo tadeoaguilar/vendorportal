@@ -7,9 +7,9 @@ export default async function Home() {
     {
       headers: {
         "Accept": "application/json",
-        "Authorization": `Bearer D7oT1pBt1XwcaGac6-geDsjEtWsAvbJrDcGcw6RDKek`,
+        "Authorization": `Bearer TOKE`,
         "Content-Type": 'application/json',
-        "Cookie": ".ASPXAUTH=067EC596C12B2642BBC1E16E2E1DA76E763820009856B4127213E247DD544382BEB1095101D06F5DDDDE1794DE2206DE7DB636A49D635685F6BEFDAE3FEC47496D9587192F7E88A9CE8419E0EA15903A80DF680D18499A5E6042D3CFB57B3EB507F6FB27DB5CB2EBAB8846D6D6FEC5E13C2E979C1F9276814C2AE7E52071F7A7D647898AF99343A49358E0ABB18869DDFE36516D; ASP.NET_SessionId=j3ixra2vwzkvaiuogai3i2vq; CompanyID=ZUBRAUN; Locale=TimeZone=GMTM0600M&Culture=en-US; UserBranch=1; requestid=4FBDD1C36B026D8311F026D0EDF9472D; requeststat=+st:586+sc:~/entity/auth/login+start:638817307322935720+tg:"
+        "Cookie": "Copia Cookie"
     }
   }
     
