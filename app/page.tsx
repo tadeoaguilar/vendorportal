@@ -1,19 +1,26 @@
 //import Image from "next/image";
+import { cookies } from 'next/headers';
 
-
-
+/* eslint-disable */
 export default async function Home() {
-  const data = await fetch("https://diprec.acumatica.com/entity/Default/23.200.001//Bill?$top=10&$filter=Vendor eq 'MAP0036'&$select=Amount,Vendor,ReferenceNbr",
-    {
-      headers: {
-        "Accept": "application/json",
-        "Authorization": `Bearer TOKE`,
-        "Content-Type": 'application/json',
-        "Cookie": "Copia Cookie"
-    }
+  const cookieStore = cookies();
+  const accessToken = (await cookieStore).get('accessToken');
+  console.log("Access Token:", accessToken?.value);
+   console.log("Fetching data with headers...");
+  const data = await fetch("https://diprec.acumatica.com/entity/Default/23.200.001/Bill?$top=10&$filter=Vendor eq 'MAP0036'&$select=Amount,Vendor,ReferenceNbr", {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+       'Authorization': `Bearer ${accessToken?.value}`
+    },
+  });
+
+
+  console.log("data",data)
+  if (!data.ok) {
+    throw new Error('Failed to fetch data');
   }
-    
-  )
+
   const posts = await data.json()
   //console.log(posts)
   return (
@@ -40,3 +47,4 @@ export default async function Home() {
     </div>
   );
 }
+/* eslint-disable */
