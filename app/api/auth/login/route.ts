@@ -8,8 +8,8 @@ export async function POST(request: NextRequest) {
     const formData = new URLSearchParams({
         "grant_type": "password",
         "scope": "api",
-        "client_id": "3026EFAD-9D64-B016-ABF1-E22F01E57B0A@PRUEBA",
-        "client_secret": "g-6l8RN7m7tzFRVXFesdPA",
+        "client_id": process.env.CLIENT_ID? process.env.CLIENT_ID : "Acumatica",
+        "client_secret": process.env.CLIENT_SECRET? process.env.CLIENT_SECRET : "Acumatica",
         "username": credentials.name,
         "password": credentials.password,
         "tenant": credentials.tenant,
