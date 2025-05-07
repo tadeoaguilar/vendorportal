@@ -7,10 +7,10 @@ interface VendorDetailProps {
 
 export const VendorDetail: React.FC<VendorDetailProps> = ({vendorData}) => {
     return (
-        <div className="container mx-auto p-8">
+        <div className="container mx-auto bg-foreground p-8 rounded-3xl shadow-2xl">
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-black shadow-md rounded-lg">
-          <thead className="bg-black-50">
+        <table className="min-w-full  shadow-md rounded-lg">
+          <thead className="text-white">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -22,7 +22,7 @@ export const VendorDetail: React.FC<VendorDetailProps> = ({vendorData}) => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
             </tr>
           </thead>
-          <tbody className="bg-black divide-y divide-gray-200">
+          <tbody className="bg-primary divide-y divide-gray-200">
             {vendorData.map((vendorDetail:VendorData ) => (
               <tr key={vendorDetail.id} className="hover:bg-amber-300">
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

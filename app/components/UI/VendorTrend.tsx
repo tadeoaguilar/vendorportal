@@ -106,17 +106,19 @@ export const VendorTrend: React.FC<VendorDetailProps> = ({vendorData}) => {
     }
 
     return (
-      <>
-      <VendorBadge 
-        KPI="Total Balance"         
-        Color="bg-green-500" 
-        Legend={legend("totalBalance")} />
-      <VendorBadge 
-        KPI="Total Amount"         
-        Color="bg-green-500" 
-        Legend={legend("totalAmount")} />
-      <div className="container flex-col mx-auto p-8">
-
+      <div className="container mx-auto bg-foreground shadow-2xl p-8 rounded-2xl my-6">
+      <div className='flex flex-row justify-evenly rounded-2xl my-3'> 
+        <VendorBadge 
+          
+          KPI="Total Balance"         
+          Color="bg-green-500" 
+          Legend={legend("totalBalance")} />
+        <VendorBadge 
+          KPI="Total Amount"         
+          Color="bg-green-500" 
+          Legend={legend("totalAmount")} />        
+      </div>
+      <div className="container flex-col mx-auto p-8 shadow rounded-2xl ">
         <Line 
           data={chartData}
           options={{
@@ -130,6 +132,6 @@ export const VendorTrend: React.FC<VendorDetailProps> = ({vendorData}) => {
           }}
         />
       </div>
-      </>
+      </div>
     );
 };
