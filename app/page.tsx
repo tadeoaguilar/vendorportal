@@ -1,59 +1,56 @@
-//import Image from "next/image";
+
 import { cookies } from 'next/headers';
 
-/* eslint-disable */
+import VendorDetail from './components/UI/VendorDetail';
+import { VendorTrend } from './components/UI/VendorTrend';
+import { redirect } from 'next/navigation';
+
+
+
+export const revalidate = 3600; // invalidate every hour
+
+
 export default async function Home() {
   const cookieStore = cookies();
   const accessToken = (await cookieStore).get('accessToken');
   console.log("Access Token:", accessToken?.value);
    console.log("Fetching data with headers...");
-  const data = await fetch(`${process.env.ACUMATICA_API_ENDPOINT }/entity/${process.env.ACUMATICA_API_VERSION}/Bill?$top=10&$filter=Vendor eq 'MAP0036'&$select=Amount,Vendor,ReferenceNbr`, {
+  const data = await 
+  fetch(`${process.env.ACUMATICA_API_ENDPOINT }/entity/${process.env.ACUMATICA_API_VERSION}/Bill?$top=100&$filter=Vendor eq 'MAP0036'&$select=Date,Status,Amount,Vendor,ReferenceNbr,VendorRef,Balance,Type`, 
+    {
+    cache: 'force-cache',    
     headers: {
+      
       'Content-Type': 'application/json',
       'Accept': 'application/json',
        'Authorization': `Bearer ${accessToken?.value}`
     },
   });
-
-
-  console.log("data",data)
+   // Add cache validation
+   const cacheStatus = data.headers.get('x-vercel-cache') || 'Not cached';
+   console.log('Cache status:', cacheStatus);
+ 
+   // Log response headers for cache inspection
+   console.log('Cache-Control:', data.headers.get('cache-control'));
+   console.log('Age:', data.headers.get('age'));
   
   if (!data.ok) {
-    console.log("data 2",data)
+    console.log("Error fetching data:", data.status, data.statusText);
   
   }
+  if (data.status === 401) {
+    console.log("Unauthorized access - redirecting to login page");
+    redirect('/login');
+    
   
-  const posts = data.ok ? await data.json() : []; 
-  
-
-  
-   
-  
-
-  
-  //console.log(posts)
+  }
+  const vendorData = data.ok ? await data.json() : [];
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <>
       
-      {
-        posts.map((post: {id:string, ReferenceNbr:{value: number},  Vendor:{value: number}} ) => (
-        
-       console.log(post)
-        
-      ))
-      }
-
-      {posts.map((post: {id:string, ReferenceNbr:{value: number},  Vendor:{value: number}} ) => (
-        
-        <li key={post.id}> {post.ReferenceNbr.value} - {post.Vendor.value}</li>
-        
-      ))}
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-       
-      </footer>
-    </div>
+      <VendorTrend vendorData={vendorData} />
+    
+      <VendorDetail vendorData={vendorData} />
+    </>
   );
 }
-/* eslint-disable */

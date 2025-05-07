@@ -1,10 +1,11 @@
 
+import { LoginCredentials } from '@/app/lib/types';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
-    const credentials = await request.json();
+    const credentials: LoginCredentials = await request.json();
     const formData = new URLSearchParams({
         "grant_type": "password",
         "scope": "api",
