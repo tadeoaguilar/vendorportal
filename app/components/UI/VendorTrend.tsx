@@ -26,15 +26,18 @@ ChartJS.register(
   Legend
 );
 
-interface VendorDetailProps {
-    vendorData: VendorData[];
-}   
+interface Props {
+  vendorData: VendorData[];
+}
+
 interface GroupedData {
     yearMonth: string;
     totalBalance: number;
     totalAmount: number;
 }
-export const VendorTrend: React.FC<VendorDetailProps> = ({vendorData}) => {
+
+export function VendorTrend({ vendorData }: Props) {
+  console.log("VendorTrend", vendorData);
     const groupedData = React.useMemo(() => {
         return vendorData.reduce((acc: { [key: string]: { balance: number; amount: number } }, item) => {
             const date = new Date(item.Date.value);
@@ -59,8 +62,7 @@ export const VendorTrend: React.FC<VendorDetailProps> = ({vendorData}) => {
     }))
     .sort((a, b) => a.yearMonth.localeCompare(b.yearMonth));
 
-    console.log("Grouped Data:", groupedData);
-    console.log("Sorted Data:", sortedData);    
+
 
     const chartData = {
       labels: sortedData.map(item => item.yearMonth),
@@ -95,10 +97,17 @@ export const VendorTrend: React.FC<VendorDetailProps> = ({vendorData}) => {
         
       }
       return (
+        
+        
         <>                
+        {sortedData.length > 0 && (
+          <>
           <p className="text-sm text-gray-600">Last Month: {USDollar.format((sortedData[sortedData.length - 2][field as keyof GroupedData] as number))}</p>
           <p className="text-sm text-gray-600">Current Month: {USDollar.format((sortedData[sortedData.length - 1][field as keyof GroupedData]as number))}</p>    
           <p className="text-sm text-gray-600">Variance: %{variance.toFixed(2)}</p>    
+          </>
+        )}
+
         </>
 
 

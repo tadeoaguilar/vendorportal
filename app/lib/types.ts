@@ -3,6 +3,7 @@ export interface LoginCredentials {
   password: string;
   tenant: string;
   branch: string;
+  vendor: string;
 }
 
 export interface AuthResponse {

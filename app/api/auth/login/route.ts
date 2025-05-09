@@ -25,9 +25,7 @@ export async function POST(request: NextRequest) {
       },
       body: formData.toString(),
     });
-    console.log('Response status:', response.status);
-    console.log('Response Body:', response.body);
-    console.log('Response :', response);
+
     
     const cookies = response.headers.get('set-cookie');
     
@@ -41,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     const responseData = await response.json();
 
-   console.log('Response data:', responseData);
+
     // Create response with cookie
     const nextResponse = NextResponse.json(
       { success: true ,
@@ -62,7 +60,7 @@ export async function POST(request: NextRequest) {
       });
     return nextResponse;
   } catch (error) {
-    console.error('Error during authentication:', error);
+
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
