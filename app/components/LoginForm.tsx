@@ -8,9 +8,9 @@ export default function LoginForm() {
   const [credentials, setCredentials] = useState<LoginCredentials>({
     name: '',
     password: '',
-    tenant: '',
-    branch: '',
-    vendor: ''
+    tenant: 'PRUEBA',
+    branch: 'BRANCH',
+    vendor: 'MAP0036'
   });
     
   
@@ -55,7 +55,7 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-blue-500" >
+    <form onSubmit={handleSubmit} name='Test' className="space-y-4 text-blue-500" >
       <input
         type="text"
         placeholder="Username"
@@ -73,6 +73,7 @@ export default function LoginForm() {
       <input
         type="text"
         placeholder="Tenant"
+        content='PRUEBA'
         value={credentials.tenant}
         onChange={handleInputChange('tenant')}
         className="w-full p-2 border rounded"
@@ -80,6 +81,7 @@ export default function LoginForm() {
       <input
         type="text"
         placeholder="Vendor"
+        content='MAP0036'
         value={credentials.vendor}
         onChange={handleInputChange('vendor')}
         className="w-full p-2 border rounded"
@@ -87,6 +89,8 @@ export default function LoginForm() {
       <input
         type="text"
         placeholder="Branch"
+        hidden={true}
+        content='BRANCH'
         value={credentials.branch}
         onChange={handleInputChange('branch')}
         className="w-full p-2 border rounded"

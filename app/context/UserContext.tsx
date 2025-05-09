@@ -12,8 +12,8 @@ interface LoginContextType {
 const defaultLoginData: LoginCredentials = {
   name: '',
   password: '',
-  tenant: '',
-  branch: '',
+  tenant: 'PRUEBA',
+  branch: 'BRANCH',
   vendor: ''
 };
 
