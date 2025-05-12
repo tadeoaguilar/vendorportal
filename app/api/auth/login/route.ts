@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
         "branch": credentials.branch
       });
     console.log('formData object:', formData);
-    const response = await fetch('https://diprec.acumatica.com/identity/connect/token', {
+    const response = await fetch(`${process.env.ACUMATICA_API_ENDPOINT}/identity/connect/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

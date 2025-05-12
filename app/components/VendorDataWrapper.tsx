@@ -17,7 +17,7 @@ export function VendorDataWrapper() {
 
     const { loginData } = useLoginData();
 
- // useEffect(() => {
+
    
     const fetchData = async () => {
       try {
@@ -51,9 +51,9 @@ export function VendorDataWrapper() {
         console.error('Failed to fetch vendor data:', error);
       }
     };
-
+  useEffect(() => {
     fetchData();
-  //}, [router]);
+ }, [loginData]);
   console.log('VendorDataWrapper - vendorData:', vendorData);
   return (
     <>

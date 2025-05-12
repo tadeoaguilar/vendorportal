@@ -39,7 +39,9 @@ interface GroupedData {
 export function VendorTrend({ vendorData }: Props) {
   console.log("VendorTrend", vendorData);
     const groupedData = React.useMemo(() => {
-        return vendorData.reduce((acc: { [key: string]: { balance: number; amount: number } }, item) => {
+
+        return ( vendorData && vendorData.length > 0 ?
+            vendorData.reduce((acc: { [key: string]: { balance: number; amount: number } }, item) => {
             const date = new Date(item.Date.value);
             const yearMonth = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
             
@@ -51,16 +53,22 @@ export function VendorTrend({ vendorData }: Props) {
             acc[yearMonth].amount += item.Amount.value;
             
             return acc;
-        }, {});
+        }, {}) 
+        :{}
+      );
     }, [vendorData]);
     // Convert to array and sort by date
-    const sortedData: GroupedData[] = Object.entries(groupedData)
+    console.log("groupedData", groupedData);
+    const sortedData: GroupedData[] = 
+    groupedData && Object.entries(groupedData).length > 0 ?
+        Object.entries(groupedData)
     .map(([yearMonth, totals]) => ({
         yearMonth,
         totalBalance: totals.balance,
         totalAmount: totals.amount
     }))
-    .sort((a, b) => a.yearMonth.localeCompare(b.yearMonth));
+    .sort((a, b) => a.yearMonth.localeCompare(b.yearMonth))
+    : [];
 
 
 

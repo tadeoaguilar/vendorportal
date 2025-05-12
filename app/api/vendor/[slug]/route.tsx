@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-// Remove the revalidate constant since we'll handle caching differently
 export async function GET(
   request: Request,
   { params }: { params: { slug: string } }

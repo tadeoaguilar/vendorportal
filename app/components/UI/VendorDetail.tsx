@@ -15,8 +15,8 @@ export function VendorDetail({ vendorData }: Props) {
     // Calculate pagination values
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = vendorData.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(vendorData.length / itemsPerPage);
+    const currentItems = vendorData && vendorData.length>0 ? vendorData.slice(indexOfFirstItem, indexOfLastItem) : [];
+    const totalPages = vendorData && vendorData.length>0 ? Math.ceil(vendorData.length / itemsPerPage) : 0;
 
     // Handle page changes
     const handlePageChange = (pageNumber: number) => {

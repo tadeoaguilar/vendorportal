@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get('accessToken');
   
 
- // console.log("Auth Cookie:", accessToken?.value);
+  console.log(request.nextUrl.pathname);
   //console.log("Auth :", accessToken);
   
   if (!accessToken && !request.nextUrl.pathname.startsWith('/login')) {
