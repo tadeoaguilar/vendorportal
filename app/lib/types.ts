@@ -22,3 +22,15 @@ export interface VendorData {
   Type: { value: string },
   Balance: { value: number }
 }
+
+export interface VendorProfile {
+  id: string,
+  Date: { value: Date },
+  Status: { value: string },
+  Amount: { value: number },
+  Vendor: { value: string },
+  ReferenceNbr: { value: string },
+  VendorRef: { value: string },
+  Type: { value: string },
+  Balance: { value: number }
+}
