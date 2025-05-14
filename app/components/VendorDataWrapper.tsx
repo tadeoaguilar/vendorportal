@@ -1,27 +1,25 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { VendorData } from '../lib/types';
 import React from 'react';
 import { VendorTrend } from './UI/VendorTrend';
 import VendorDetail from './UI/VendorDetail';
 import { useLoginData } from '../context/UserContext';
+import LoadingSpinner from './UI/loading';
 
 
 
 export function VendorDataWrapper() {
   const [vendorData, setVendorData] = useState<VendorData[]>([]);
   const router = useRouter();
-
-
-    const { loginData } = useLoginData();
-
-
-   
-    const fetchData = async () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const { loginData } = useLoginData();
+  const fetchData = async () => {
       try {
         console.log('VendorDataWrapper - loginData:', loginData);
+         setIsLoading(true);
         if (!loginData) {
           console.log('Vendor not found in loginData');
           return;
@@ -34,6 +32,7 @@ export function VendorDataWrapper() {
         }
 
         const response = await fetch(`/api/data/${loginData.vendor}`, {
+          cache:'force-cache',
           method: 'GET'
         });
 
@@ -50,15 +49,28 @@ export function VendorDataWrapper() {
       } catch (error) {
         console.error('Failed to fetch vendor data:', error);
       }
+      finally {
+        setIsLoading(false);
+      }
     };
   useEffect(() => {
     fetchData();
  }, [loginData]);
   console.log('VendorDataWrapper - vendorData:', vendorData);
+
+  if (isLoading) {
+      return <LoadingSpinner />;
+    }
+
+
   return (
     <>
-       <VendorTrend vendorData={vendorData} />
+     
+        <VendorTrend vendorData={vendorData} />
+     
+     
        <VendorDetail vendorData={vendorData} />
+     
     </>
   );
 }

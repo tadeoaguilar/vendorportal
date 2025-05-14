@@ -19,6 +19,7 @@ export async function GET(
     const data = await fetch(
       `${process.env.ACUMATICA_API_ENDPOINT}/entity/${process.env.ACUMATICA_API_VERSION}/Bill?$top=100&$filter=Vendor eq '${vendor}'&$select=Date,Status,Amount,Vendor,ReferenceNbr,VendorRef,Balance,Type`,
       {
+        cache: 'force-cache', // Use force-cache to cache the response
         next: { revalidate: 3600 }, // Cache for 1 hour
         headers: {
           'Content-Type': 'application/json',
